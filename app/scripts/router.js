@@ -4,14 +4,12 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'views/start',
 	'views/state',
 	'views/settings'
-], function($, _, Backbone, StartView, StateView, SettingsView){
+], function($, _, Backbone, StateView, SettingsView){
 	var AppRouter = Backbone.Router.extend({
 		routes: {
-			'': 'start',
-			'state': 'state',
+			'': 'state',
 			'settings': 'settings'
 		}
 	});
@@ -26,11 +24,6 @@ define([
 		app_router.on('route:settings', function(){
 			var settingsView = new SettingsView();
 			settingsView.render();
-		});
-
-		app_router.on('route:start', function(){
-			var startView = new StartView();
-			startView.render();
 		});
 
 		Backbone.history.start();
