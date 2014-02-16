@@ -4,9 +4,10 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
+	'models/app',
 	'views/state',
 	'views/settings'
-], function($, _, Backbone, StateView, SettingsView){
+], function($, _, Backbone, AppModel, StateView, SettingsView){
 	var AppRouter = Backbone.Router.extend({
 		routes: {
 			'': 'state',
@@ -15,18 +16,26 @@ define([
 	});
 
 	var initialize = function(){
-		var app_router = new AppRouter();
-		app_router.on('route:state', function(){
-			var stateView = new StateView();
+		var appRouter = new AppRouter(),
+			appModel = new AppModel();
+
+		appRouter.on('route:state', function(){
+			var stateView = new StateView({
+				model: appModel
+			});
 			stateView.render();
 		});
 
-		app_router.on('route:settings', function(){
-			var settingsView = new SettingsView();
+		appRouter.on('route:settings', function(){
+			var settingsView = new SettingsView({
+				model: appModel
+			});
 			settingsView.render();
 		});
 
-		Backbone.history.start();
+		Backbone.history.start({
+			pushState: true
+		});
 	};
 	return {
 		initialize: initialize
