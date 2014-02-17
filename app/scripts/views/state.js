@@ -5,11 +5,19 @@ define([
 	'underscore',
 	'backbone',
 	'templates',
-	'views/nav/navState',
+	'views/navigation/state',
 ], function ($, _, Backbone, JST, NavState) {
 	var StateView = Backbone.View.extend({
 		el: '#container',
-		template: JST['app/scripts/templates/state.ejs'],
+		templates: {
+			main: JST['app/scripts/templates/states/default.ejs'],
+			notConnected: JST['app/scripts/templates/states/notConnected.ejs'],
+			notSetup : JST['app/scripts/templates/states/notSetup.ejs'],
+			lostConnection: JST['app/scripts/templates/states/lostConnection.ejs'],
+			okTemp: JST['app/scripts/templates/states/okTemp.ejs'],
+			coldTemp: JST['app/scripts/templates/states/coldTemp.ejs'],
+			hotTemp: JST['app/scripts/templates/states/hotTemp.ejs'],
+		},
 		initialize: function() {
 			this.listenTo(this.model, 'change', this.renderPage);
 		},
@@ -18,7 +26,9 @@ define([
 			this.renderPage();
 		},
 		renderPage: function() {
-			this.$el.html(this.template(this.model.pick('lowTemp', 'highTemp')));
+			console.log('rendering state page');
+			var currentState = this.model.getCurrentState() || 'default';
+			this.$el.html(this.templates[currentState]);
 		},
 		renderNavigation: function() {
 			var nav = new NavState();

@@ -1,0 +1,32 @@
+.status-message {
+	color: $status-message;
+	font-family: $yanone;
+	font-size: $status-message-font-size;
+	margin: 10px;
+	text-align: center;
+	white-space: normal;
+}
+
+.status-image {
+	background-color: transparent;
+	background-size: cover;
+	height: 100px;
+	margin: 0 auto;
+	width: 100px;
+}
+
+.status-image--ok {
+	background-image: url(../images/sleep-icon.png);
+}
+
+.status-image--cold {
+	background-image: url(../images/snow-icon.png);
+}
+
+.status-image--loading {
+	background-image: url(../images/loader.gif);
+}
+
+.status-updated {
+	font-family: $quicksand;
+}

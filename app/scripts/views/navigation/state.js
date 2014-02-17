@@ -6,13 +6,13 @@ define([
 	'backbone',
 	'templates',
 ], function ($, _, Backbone, JST) {
-	var NavSettingsView = Backbone.View.extend({
+	var NavStateView = Backbone.View.extend({
 		el: '#nav',
-		template: JST['app/scripts/templates/navSettings.ejs'],
+		template: JST['app/scripts/templates/navigation/state.ejs'],
 		render: function() {
 			this.$el.html(this.template());
 		}
 	});
 
-	return NavSettingsView;
+	return NavStateView;
 });

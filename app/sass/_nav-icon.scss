@@ -1,0 +1,28 @@
+.nav-icon {
+	background-color: $nav-icon-background;
+	color: $nav-icon-color;
+	height: $nav-icon-height;
+	left: 0px;
+	position: fixed;
+	text-align: center;
+	top: 0px;
+	width: $nav-icon-width;
+}
+
+.nav-icon__settings {
+	display: block;
+	height: 100%;
+	width: 100%;
+	&:before {
+		content: 's';
+	}
+}
+
+.nav-icon__back {
+	display: block;
+	height: 100%;
+	width: 100%;
+	&:before {
+		content: 'b';
+	}
+}

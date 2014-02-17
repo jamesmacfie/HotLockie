@@ -5,7 +5,7 @@ define([
 	'underscore',
 	'backbone',
 	'templates',
-	'views/nav/navSettings'
+	'views/navigation/settings'
 ], function ($, _, Backbone, JST, NavSettings) {
 	var SettingsView = Backbone.View.extend({
 		el: '#container',
@@ -21,7 +21,7 @@ define([
 			this.renderPage();
 		},
 		renderPage: function() {
-			this.$el.html(this.template(this.model.pick('lowTemp', 'highTemp')));
+			this.$el.html(this.template(this.model.pick('lowTemp', 'highTemp', 'btMacAddress')));
 		},
 		renderNavigation: function() {
 			var nav = new NavSettings();

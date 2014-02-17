@@ -1,0 +1,41 @@
+.container {
+	height: 100%;	
+	width: 100%;
+}
+
+
+.container__content {
+	height: inherit;
+	overflow: hidden;
+	padding-top: 100px;
+	text-align: center;
+	white-space: nowrap;
+	width: inherit;
+}
+.container__content--not-connected {
+	background-color: $status-not-connected-background;	
+}
+
+.container__content--not-setup {
+	background-color: $status-not-setup-background;	
+}
+
+.container__content--status--cold {
+	background-color: $status-cold-background;
+}
+
+.container__content--status--warm {
+	background-color: $status-warm-background;
+}
+
+.container__content--status--ok {
+	background-color: $status-ok-background;
+}
+
+.container__content--status--loading {
+	background-color: $status-loading-background;
+}
+
+.container__content--settings {
+	background-color: $status-loading-background;	
+}
