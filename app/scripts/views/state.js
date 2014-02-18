@@ -11,7 +11,7 @@ define([
 		el: '#container',
 		templates: {
 			main: JST['app/scripts/templates/states/default.ejs'],
-			notConnected: JST['app/scripts/templates/states/notConnected.ejs'],
+			notEnabled: JST['app/scripts/templates/states/notEnabled.ejs'],
 			notSetup : JST['app/scripts/templates/states/notSetup.ejs'],
 			lostConnection: JST['app/scripts/templates/states/lostConnection.ejs'],
 			okTemp: JST['app/scripts/templates/states/okTemp.ejs'],

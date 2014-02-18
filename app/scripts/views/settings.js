@@ -22,7 +22,7 @@ define([
 			this.renderPage();
 		},
 		renderPage: function() {
-			this.$el.html(this.template(this.model.pick('lowTemp', 'highTemp', 'btMacAddress', 'btConnected', 'btDevices')));
+			this.$el.html(this.template(this.model.pick('lowTemp', 'highTemp', 'btMacAddress', 'btEnabled', 'btDevices')));
 		},
 		renderNavigation: function() {
 			var nav = new NavSettings();

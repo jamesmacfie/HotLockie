@@ -17,8 +17,8 @@
 			<div class="field-control-group">
 				<label for="btMacAddress" class="label--aligned">Bluetooth device</label>
 				<select name="btMacAddress" id="btMacAddress" class="input--aligned">
-					<%if (!btConnected) { %>
-						<option value="">Bluetooth not connected</option>
+					<%if (!btEnabled) { %>
+						<option value="">Bluetooth not enabled</option>
 					<% } else { %>
 						<% if (!btDevices.length) { %>
 							<option value="">No paired devices</option>

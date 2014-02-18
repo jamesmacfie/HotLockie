@@ -23,13 +23,12 @@ define([
 
 				this.setInitialData();
 
-				this.set('btConnected', this.isBluetoothConnected());
+				this.set('btEnabled', this.isBluetoothEnabled());
 				this.bind('change', this.attributesChanged);
 				this.bindBluetoothEvents();
 			},
 			bindBluetoothEvents: function() {
-				this.listenTo(this.bluetooth, 'connected', this.bluetoothConnected);
-				this.listenTo(this.bluetooth, 'disconnected', this.bluetoothDisconnected);
+				this.listenTo(this.bluetooth, 'enabled', this.bluetoothEnabledChangeHandler);
 				this.listenTo(this.bluetooth, 'lostConnection', this.bluetoothLostConnection);
 			},
 			attributesChanged: function(){
@@ -50,14 +49,14 @@ define([
 			},
 			saveToLocalStorage: function() {
 				var objectToSave = jQuery.extend({}, this.attributes);
-				delete objectToSave.btConnected;
+				delete objectToSave.btEnabled;
 				delete objectToSave.currentTemp;
 
 				localStorage.setItem('hotLockie', JSON.stringify(objectToSave));
 			},
 			getCurrentState: function() {
-				if (!this.isBluetoothConnected()) {
-					return 'notConnected';
+				if (!this.isBluetoothEnabled()) {
+					return 'notEnabled';
 				} else if (!this.isSetup()) {
 					return 'notSetup';
 				} else {
@@ -97,20 +96,16 @@ define([
 				}
 				return true;
 			},
-			isBluetoothConnected: function() {
-				return this.bluetooth.get('connected');
+			isBluetoothEnabled: function() {
+				return this.bluetooth.get('enabled');
 			},
-			bluetoothConnected: function() {
-				console.log('bluetooth connected');
-				this.set('btConnected', true);
-			},
-			bluetoothDisconnected: function() {
-				console.log('bluetooth disconnected');
-				this.set('btConnected', false);
+			bluetoothEnabledChangeHandler: function(state) {
+				console.log('bluetooth enabled/disabled');
+				this.set('btEnabled', state);
 			},
 			bluetoothLostConnection: function() {
 				console.log('bluetooth lost connection');
-				this.set('btConnected', false);
+				this.set('btEnabled', false);
 			}
 		});
 

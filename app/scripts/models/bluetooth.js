@@ -9,10 +9,19 @@ define([
 
 		var BluetoothModel = Backbone.Model.extend({
 			initialize: function(){
-				this.set('connected', this.isConnected());
+				this.set('enabled', this.isEnabled());
+				this.on({
+				  'change:enabled': this.enabledChangeHandler,
+				});
+			},
+			isEnabled: function() {
+				return false;
 			},
 			isConnected: function() {
 				return true;
+			},
+			enabledChangeHandler: function() {
+				this.trigger('enabled', this.get('enabled'));
 			}
 
 		});

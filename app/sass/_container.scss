@@ -1,5 +1,5 @@
 .container {
-	height: 100%;	
+	height: 100%;
 	width: 100%;
 }
 
@@ -14,15 +14,15 @@
 }
 
 .container__content--lost-connection {
-	background-color: $status-not-connected-background;	
+	background-color: $status-not-enabled-background;
 }
 
-.container__content--not-connected {
-	background-color: $status-not-connected-background;	
+.container__content--not-enabled {
+	background-color: $status-not-enabled-background;
 }
 
 .container__content--not-setup {
-	background-color: $status-not-setup-background;	
+	background-color: $status-not-setup-background;
 }
 
 .container__content--status--cold {
@@ -42,5 +42,5 @@
 }
 
 .container__content--settings {
-	background-color: $status-loading-background;	
+	background-color: $status-loading-background;
 }
