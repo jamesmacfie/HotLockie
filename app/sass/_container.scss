@@ -12,6 +12,11 @@
 	white-space: nowrap;
 	width: inherit;
 }
+
+.container__content--lost-connection {
+	background-color: $status-not-connected-background;	
+}
+
 .container__content--not-connected {
 	background-color: $status-not-connected-background;	
 }
@@ -24,7 +29,7 @@
 	background-color: $status-cold-background;
 }
 
-.container__content--status--warm {
+.container__content--status--hot {
 	background-color: $status-warm-background;
 }
 

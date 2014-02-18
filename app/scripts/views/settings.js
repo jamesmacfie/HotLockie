@@ -11,17 +11,18 @@ define([
 		el: '#container',
 		template: JST['app/scripts/templates/settings.ejs'],
 		events: {
-			'change input': 'onInputChanged'
+			'change input': 'onInputChanged',
+			'change select': 'onInputChanged'
 		},
 		initialize: function() {
-			this.listenTo(this.model, 'change', this.renderPage);
+			this.listenTo(this.model, 'change', this.onModelChange);
 		},
 		render: function() {
 			this.renderNavigation();
 			this.renderPage();
 		},
 		renderPage: function() {
-			this.$el.html(this.template(this.model.pick('lowTemp', 'highTemp', 'btMacAddress')));
+			this.$el.html(this.template(this.model.pick('lowTemp', 'highTemp', 'btMacAddress', 'btConnected', 'btDevices')));
 		},
 		renderNavigation: function() {
 			var nav = new NavSettings();
@@ -33,6 +34,11 @@ define([
 				inputVal = $target.val();
 
 			this.model.set(inputName, inputVal);
+		},
+		onModelChange: function() {
+			if (Backbone.history.fragment === "settings") {
+				this.renderPage();
+			}
 		}
 	});
 

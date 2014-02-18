@@ -19,20 +19,24 @@ define([
 			hotTemp: JST['app/scripts/templates/states/hotTemp.ejs'],
 		},
 		initialize: function() {
-			this.listenTo(this.model, 'change', this.renderPage);
+			this.listenTo(this.model, 'change', this.onModelChange);
 		},
 		render: function() {
 			this.renderNavigation();
 			this.renderPage();
 		},
 		renderPage: function() {
-			console.log('rendering state page');
 			var currentState = this.model.getCurrentState() || 'default';
-			this.$el.html(this.templates[currentState]);
+			this.$el.html(this.templates[currentState](this.model.pick('currentTemp')));
 		},
 		renderNavigation: function() {
 			var nav = new NavState();
 			nav.render();
+		},
+		onModelChange: function() {
+			if (Backbone.history.fragment === '') {
+				this.renderPage();
+			}
 		}
 	});
 

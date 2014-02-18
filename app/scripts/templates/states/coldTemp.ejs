@@ -1,3 +1,8 @@
-<div class="container__content container__content--not-connected">
-	<span>cold temp</span>
+<div class="container__content container__content--status--cold">
+	<p class="page-title">Current Lockie Status</p>
+	<div class="status-holder">
+    <h1 class="status-message" id="status-message">You might want to put the heater on</h1>
+    <div class="status-image status-image--cold" id="status-image"></div>
+    <h3 class="status-message" id="current-temp">It's currently <%= currentTemp %> &#186;C</h3>
+  </div>
 </div>

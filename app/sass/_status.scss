@@ -11,22 +11,34 @@
 	background-color: transparent;
 	background-size: cover;
 	height: 100px;
-	margin: 0 auto;
+	margin: 50px auto 0;
 	width: 100px;
 }
 
 .status-image--ok {
-	background-image: url(../images/sleep-icon.png);
+	background-image: url(../images/icon-ok.png);
 }
 
 .status-image--cold {
-	background-image: url(../images/snow-icon.png);
+	background-image: url(../images/icon-cold.png);
 }
 
-.status-image--loading {
-	background-image: url(../images/loader.gif);
+.status-image--hot {
+	background-image: url(../images/icon-hot.png);
 }
 
-.status-updated {
-	font-family: $quicksand;
+.status-image--oops {
+	background-image: url(../images/icon-oops.png);
+}
+
+.status-image--not-setup {
+	background-image: url(../images/icon-not-setup.png);
+}
+
+.status-image--no-bluetooth {
+	background-image: url(../images/icon-no-bluetooth.png);
+}
+
+.status-image--lost-connection {
+	background-image: url(../images/icon-lost-connection.png);
 }

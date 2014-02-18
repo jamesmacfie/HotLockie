@@ -12,10 +12,10 @@ define([
 			defaults: {
 				btMacAddress: null,
 				lowTemp: null,
-				highTemp: null
+				highTemp: null,
+				btDevices: []
 			},
 			initialize: function(){
-
 				//TEMP
 				window.testModel = this;
 
@@ -36,7 +36,12 @@ define([
 				this.saveToLocalStorage();
 			},
 			setInitialData: function() {
-				var data = JSON.parse(localStorage.getItem('hotLockie'));
+				var local = localStorage.getItem('hotLockie');
+				if (local === 'undefined') {
+					return;
+				}
+
+				var data = JSON.parse(local);
 				if (data) {
 					_.each(data, function(value, key) {
 						this.set(key, value);

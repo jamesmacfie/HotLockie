@@ -1,10 +1,35 @@
 <div class="container__content container__content--settings">
-	<label>Low temp</label>
-	<input type="number" name="lowTemp" value="<%= lowTemp %>" />
+	<div class="status-holder">
+    <h1 class="status-message">Settings</h1>
+  </div>
+	<form>
+		<fieldset>
+			<div class="field-control-group">
+				<label for="lowTemp" class="label--aligned">Low temp</label>
+				<input name="lowTemp" id="lowTemp" type="number" placeholder="What's the low temp?" class="input--aligned" value="<%= lowTemp %>" />
+			</div>
 
-	<label>High temp</label>
-	<input type="number" name="highTemp" value="<%= highTemp %>" />
+			<div class="field-control-group">
+				<label for="highTemp" class="label--aligned">High temp</label>
+				<input name="highTemp" id="highTemp" type="number" placeholder="What's the high temp?" class="input--aligned" value="<%= highTemp %>" />
+			</div>
 
-	<label>BT Address</label>
-	<input type="number" name="btMacAddress" value="<%= btMacAddress %>" />
+			<div class="field-control-group">
+				<label for="btMacAddress" class="label--aligned">Bluetooth device</label>
+				<select name="btMacAddress" id="btMacAddress" class="input--aligned">
+					<%if (!btConnected) { %>
+						<option value="">Bluetooth not connected</option>
+					<% } else { %>
+						<% if (!btDevices.length) { %>
+							<option value="">No paired devices</option>
+						<% } else { %>
+							<% for(var i=0; i<btDevices.length; i++) {%>
+						  	<option value="<%= btDevices[i].mac %>" <% if (btDevices[i].mac === btMacAddress)  {%>selected="selected" <% } %>><%= btDevices[i].name %></option>
+							<% } %>
+						<% } %>
+					<% } %>
+				</select>
+			</div>
+		</fieldset>
+	</form>
 </div>

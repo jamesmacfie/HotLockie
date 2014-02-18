@@ -1,9 +1,10 @@
-*:not(input) {
+*:not(input, select) {
 	box-sizing: border-box;
 	color: $base-text-color;
 }
 
 html, body {
+	font-family: $sans-serif;
 	height: 100%;
 	margin: 0;
 	overflow: hidden;
@@ -21,5 +22,19 @@ a {
 	text-decoration: none;
 	&:visited {
 		color: inherit;
+	}
+}
+
+input, select {
+	border: 1px solid #ccc;
+	padding: 6px 7px;
+	display: inline-block;
+	font-size: 13px;
+	box-shadow: inset 0 1px 3px #ddd;
+	border-radius: 4px;
+
+	&:focus {
+		border-color: #129FEA;
+		outline: 0;
 	}
 }
