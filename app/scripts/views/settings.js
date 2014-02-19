@@ -36,7 +36,7 @@ define([
 			this.model.set(inputName, inputVal);
 		},
 		onModelChange: function() {
-			if (Backbone.history.fragment === "settings") {
+			if (Backbone.history.fragment === 'settings') {
 				this.renderPage();
 			}
 		}

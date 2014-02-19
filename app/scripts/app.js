@@ -10,6 +10,10 @@ define([
 	var initialize = function(){
 		Router.initialize();
 		bindEvents();
+		Backbone.history.navigate('', {trigger: true});
+
+
+
 	};
 
 	var bindEvents = function() {

@@ -6,26 +6,26 @@
 		<fieldset>
 			<div class="field-control-group">
 				<label for="lowTemp" class="label--aligned">Low temp</label>
-				<input name="lowTemp" id="lowTemp" type="number" placeholder="What's the low temp?" class="input--aligned" value="<%= lowTemp %>" />
+				<input name="lowTemp" id="lowTemp" type="number" placeholder="What's the low temp?" class="input--aligned input--narrow" value="<%= lowTemp %>" />
 			</div>
 
 			<div class="field-control-group">
 				<label for="highTemp" class="label--aligned">High temp</label>
-				<input name="highTemp" id="highTemp" type="number" placeholder="What's the high temp?" class="input--aligned" value="<%= highTemp %>" />
+				<input name="highTemp" id="highTemp" type="number" placeholder="What's the high temp?" class="input--aligned input--narrow" value="<%= highTemp %>" />
 			</div>
 
 			<div class="field-control-group">
 				<label for="btMacAddress" class="label--aligned">Bluetooth device</label>
-				<select name="btMacAddress" id="btMacAddress" class="input--aligned">
+				<select name="btMacAddress" id="btMacAddress" class="input--aligned input--narrow">
 					<%if (!btEnabled) { %>
 						<option value="">Bluetooth not enabled</option>
 					<% } else { %>
 						<% if (!btDevices.length) { %>
 							<option value="">No paired devices</option>
 						<% } else { %>
-							<% for(var i=0; i<btDevices.length; i++) {%>
-						  	<option value="<%= btDevices[i].mac %>" <% if (btDevices[i].mac === btMacAddress)  {%>selected="selected" <% } %>><%= btDevices[i].name %></option>
-							<% } %>
+							<% _.each(btDevices, function(device) { %>
+								<option value="<%= device.address %>" <% if (device.address === btMacAddress) { %>selected="selected"<% } %>><%= device.displayName %></option>
+							<% }) %>
 						<% } %>
 					<% } %>
 				</select>

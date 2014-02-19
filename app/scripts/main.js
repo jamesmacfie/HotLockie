@@ -26,8 +26,8 @@ require.config({
     }
 });
 
-require([
-    'app'
-], function (App) {
-    App.initialize();
-});
+document.addEventListener('deviceready', function() {
+	require(['app'], function (App) {
+			App.initialize();
+	});
+}, true);

@@ -13,12 +13,10 @@ define([
 				btMacAddress: null,
 				lowTemp: null,
 				highTemp: null,
-				btDevices: []
+				btDevices: [],
+				currentTemp: null
 			},
 			initialize: function(){
-				//TEMP
-				window.testModel = this;
-
 				this.bluetooth = new Bluetooth();
 
 				this.setInitialData();
@@ -29,6 +27,8 @@ define([
 			},
 			bindBluetoothEvents: function() {
 				this.listenTo(this.bluetooth, 'enabled', this.bluetoothEnabledChangeHandler);
+				this.listenTo(this.bluetooth, 'message', this.bluetoothMessageReceivedHandler);
+				this.listenTo(this.bluetooth, 'btDevices', this.bluetoothDevicesChangeHandler);
 				this.listenTo(this.bluetooth, 'lostConnection', this.bluetoothLostConnection);
 			},
 			attributesChanged: function(){
@@ -103,9 +103,14 @@ define([
 				console.log('bluetooth enabled/disabled');
 				this.set('btEnabled', state);
 			},
+			bluetoothDevicesChangeHandler: function(devices) {
+				this.set('btDevices', devices);
+			},
 			bluetoothLostConnection: function() {
-				console.log('bluetooth lost connection');
-				this.set('btEnabled', false);
+				this.set('currentTemp', null);
+			},
+			bluetoothMessageReceivedHandler: function(message) {
+				this.set('currentTemp', message);
 			}
 		});
 
