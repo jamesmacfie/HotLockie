@@ -27,7 +27,7 @@ define([
 		},
 		renderPage: function() {
 			var currentState = this.model.getCurrentState() || 'default';
-			this.$el.html(this.templates[currentState](this.model.pick('currentTemp')));
+			this.$el.html(this.templates[currentState](this.model.pick('currentTemp', 'hasConnection')));
 		},
 		renderNavigation: function() {
 			var nav = new NavState();

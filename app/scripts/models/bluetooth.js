@@ -1,4 +1,4 @@
-/*global define*/
+/*global define, alert*/
 
 define([
 		'jquery',
@@ -19,7 +19,7 @@ define([
 				  'change:btDevices': this.btDevicesChangeHandler,
 				});
 				this.startIntermitantChecks();
-				this.bluetoothSerial.subscribe('\n', this.onMessage, this.onLostConnection);
+				this.set('btDevices', []);
 			},
 			setBluetoothSerial: function() {
 				this.bluetoothSerial = window.bluetoothSerial;
@@ -32,7 +32,7 @@ define([
 				this.stateChecks();
 				setInterval(function () {
 					me.stateChecks();
-				}.bind(this), 5000);
+				}.bind(this), 1000);
 			},
 			stateChecks: function() {
 				this.activeCheck();
@@ -44,7 +44,8 @@ define([
 					difference = (currentTime - this.get('lastMessageTimestamp')) / 1000;
 
 				if (difference >= 60) {
-					this.onLostConnection();
+					console.log('No message in 1 minutes');
+					this.onWeakConnection();
 				}
 			},
 			setEnabled: function() {
@@ -56,8 +57,6 @@ define([
 				});
 			},
 			setDevices: function() {
-				//Bit of a hack. Wipe current devices array
-				this.set('btDevices', []);
 				var me = this;
 				this.bluetoothSerial.list(function(devices) {
 					var deviceArray = [];
@@ -71,6 +70,32 @@ define([
 					me.set('btDevices', deviceArray);
 				});
 			},
+			connectToBluetooth: function(address, success, failure) {
+				console.log('attempting to connect to ' + address);
+				this.bluetoothSerial.connect(address, success, failure);
+			},
+			startListening: function(address) {
+				this.set('btMacAddress', address);
+				var me = this;
+
+				var onMessageFn = this.onMessage.bind(this),
+					onLostConnectionFn = this.onLostConnection.bind(this),
+					connectFn = this.connectToBluetooth.bind(this);
+
+				var	subscribeFn = function() {
+					console.log('staring to subscribe for messages');
+					this.bluetoothSerial.subscribe('\n', onMessageFn, onLostConnectionFn);
+				}.bind(this);
+
+				var retryFn = function() {
+					console.log('No luck connecting. Trying again soon');
+					setTimeout(function() {
+						connectFn(me.get('btMacAddress'), subscribeFn, retryFn);
+					}, 1000); //Retry connection in 1 second
+				}.bind(this);
+
+				this.connectToBluetooth(me.get('btMacAddress'), subscribeFn, retryFn);
+			},
 			enabledChangeHandler: function() {
 				this.trigger('enabled', this.get('enabled'));
 			},
@@ -78,10 +103,17 @@ define([
 				this.trigger('btDevices', this.get('btDevices'));
 			},
 			onMessage: function(message) {
+				console.log('Message received');
 				this.set('lastMessageTimestamp', new Date());
 				this.trigger('message', message);
 			},
+			onWeakConnection: function() {
+				console.log('Weak connection');
+				this.set('lastMessageTimestamp', new Date());
+				this.trigger('weakConnection');
+			},
 			onLostConnection: function() {
+				console.log('Lost connection');
 				this.set('lastMessageTimestamp', new Date());
 				this.trigger('lostConnection');
 			}
